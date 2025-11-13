@@ -1,5 +1,10 @@
 const myLibrary = [];
 const displayBook = document.getElementById('library');
+const newBook = document.getElementById("newBook");
+const addBookDialog = document.getElementById("addBookDialog");
+const form = document.getElementById("bookForm");
+const closeBtn = document.getElementById("closeBtn");
+
 
 function Book(title, author, pages, readStatus) {
   this.title = title;
@@ -12,7 +17,7 @@ function Book(title, author, pages, readStatus) {
 function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
   myLibrary.push(newBook);
-  return newBook
+  renderBook();
 }
 
 addBookToLibrary('The Greatest Estate Developer', 'Bk_Moon/ Lee hyunmin', 213, true);
@@ -48,4 +53,30 @@ function renderBook() {
   });
 }
 
-renderBook();
+
+newBook.addEventListener("click", () => {
+  addBookDialog.showModal();
+});
+
+closeBtn.addEventListener("click", () => {
+  addBookDialog.close();
+});
+
+form.addEventListener("submit", (event) => {
+  const getBookName = document.getElementById("bookName");
+  const title = getBookName.value;
+
+  const getBookAuthor = document.getElementById("bookAuthor");
+  const author = getBookAuthor.value;
+
+  const getBookPages = document.getElementById("bookPages");
+  const pages = getBookPages.value;
+
+  const getReadStatus = document.getElementById("bookRead");
+  const readStatus = getReadStatus.value;
+
+  addBookToLibrary(title, author, pages, readStatus);
+
+  console.log('Form submitted');
+  form.reset();
+});
