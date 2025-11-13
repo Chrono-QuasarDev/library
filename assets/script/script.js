@@ -14,6 +14,10 @@ function Book(title, author, pages, readStatus) {
   this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleReadStatus = function () {
+  this.readStatus = !this.readStatus;
+}
+
 function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
   myLibrary.push(newBook);
@@ -43,9 +47,18 @@ function renderBook() {
     const pages = document.createElement('p');
     pages.textContent = `Pages: ${book.pages}`;
 
-    const readStatus = document.createElement('p');
+    const readStatus = document.createElement('button');
     readStatus.textContent = book.readStatus ? "Read" : "Not Read";
-    readStatus.classList.add(book.readStatus ? 'read-status-green' : 'read-status-red');
+    readStatus.dataset.id = book.id;
+    readStatus.addEventListener("click", (event) => {
+      const bookId = event.target.dataset.id;
+      const book = myLibrary.find(item => item.id === bookId);
+      if (book) {
+        book.toggleReadStatus();
+        event.target.textContent = book.readStatus ? "Read" : "Not read";
+      }
+    });
+    // readStatus.classList.add(book.readStatus ? 'read-status-green' : 'read-status-red');
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = 'Delete';
@@ -91,9 +104,11 @@ form.addEventListener("submit", (event) => {
 
   const getReadStatus = document.getElementById("bookRead");
   const readStatus = getReadStatus.value;
+  readStatus.checked = true;
 
   addBookToLibrary(title, author, pages, readStatus);
 
   console.log('Form submitted');
+  console.log(`Read status: ${readStatus}`);
   form.reset();
 });
