@@ -44,15 +44,32 @@ function renderBook() {
     pages.textContent = `Pages: ${book.pages}`;
 
     const readStatus = document.createElement('p');
-
     readStatus.textContent = book.readStatus ? "Read" : "Not Read";
     readStatus.classList.add(book.readStatus ? 'read-status-green' : 'read-status-red');
 
-    bookCard.append(title, author, pages, readStatus);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.dataset.id = book.id;
+    const bookId = deleteBtn.dataset.id;
+
+    deleteBtn.addEventListener("click", () => {
+      console.log(book.id);
+      console.log(bookId);
+      console.log(book)
+
+      const bookToRemove = bookId;
+      const indexToRemove = myLibrary.findIndex(item => item.id === bookToRemove);
+
+      if (indexToRemove !== -1) {
+        myLibrary.splice(indexToRemove, 1);
+      }
+      renderBook();
+    });
+
+    bookCard.append(title, author, pages, readStatus, deleteBtn);
     displayBook.appendChild(bookCard);
   });
 }
-
 
 newBook.addEventListener("click", () => {
   addBookDialog.showModal();
