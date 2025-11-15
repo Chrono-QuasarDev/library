@@ -137,7 +137,7 @@
         <p>Hi there, <br> <span class="user-name">QuasarDev (@quasardev)</span></p>
       </div>
       <nav class="buttons">
-        <a href="#" class="header-btn btn">Add Book</a>
+        <a href="#" class="header-btn btn" id="newBook">Add Book</a>
       </nav>
     </section>
   </header>
@@ -145,7 +145,6 @@
   <main>
     <section id="library"></section>
   </main>
-  </div>
 
   <dialog id="addBookDialog">
     <form id="bookForm" method="dialog">
@@ -158,17 +157,18 @@
       <label for="bookPages">Pages:</label>
       <input type="number" id="bookPages" name="bookPages">
 
-      <label for="bookRead">Read:</label>
-      <input type="checkbox" id="bookRead" name="bookRead">
+      <label class="checkbox-wrapper">
+        <input type="checkbox" id="bookRead" name="bookRead" />
+        <span class="checkbox-label">Read</span>
+      </label>
 
-      <input type="submit" value="Add Book">
-      <button type="button" id="closeBtn">Close</button>
+      <div class="modal-actions">
+        <input type="submit" value="Add Book" class="btn read-status-green">
+        <button type="button" id="closeBtn" class="btn read-status-red">Close</button>
+      </div>
     </form>
   </dialog>
-
-  <button id="newBook">New Book</button>
-
-
+  </div>
   <script src="assets/script/script.js"></script>
 </body>
 </html>

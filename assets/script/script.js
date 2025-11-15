@@ -127,7 +127,7 @@ form.addEventListener("submit", (event) => {
 
   const getReadStatus = document.getElementById("bookRead");
   const readStatus = getReadStatus.value;
-  readStatus.checked = true;
+  // readStatus.checked = true;
 
   addBookToLibrary(title, author, pages, readStatus);
 

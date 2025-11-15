@@ -94,7 +94,6 @@ a {
 .btn {
   font-weight: bold;
   border-radius: 300px;
-  transition: scale 0.3s ease;
   padding: 0.6rem 2rem;
   border: none;
   cursor: pointer;
@@ -345,11 +344,72 @@ main {
   color: var(--delete-btn-text);
   padding: 0.6rem 2rem;
   border-radius: 300px;
-  transition: scale 0.3s ease;
   border: none;
   cursor: pointer;
+  transition: scale 0.3s ease;
 }
 
 .read-status-green:active {
-  transform: scale(0.9);
+  scale: 0.9;
+}
+
+
+/* ------------ DIALOG -------------- */
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  background-color: var(--card-border);
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
+}
+
+::backdrop {
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--sidebar-text-active);
+  background-color: var(--sidebar-active-bg);
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--sidebar-text-active);
+  border-radius: 4px; 
+}
+
+.checkbox-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #687be7;
 }
