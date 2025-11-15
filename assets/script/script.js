@@ -47,9 +47,22 @@ function renderBook() {
     const pages = document.createElement('p');
     pages.textContent = `Pages: ${book.pages}`;
 
+    const bookDescription = document.createElement("div")
+    bookDescription.classList.add('book-description');
+
+    const bookBtn = document.createElement("div");
+    bookBtn.classList.add("book-btn");
+
     const readStatus = document.createElement('button');
     readStatus.textContent = book.readStatus ? "Read" : "Not Read";
     readStatus.dataset.id = book.id;
+    if (readStatus.textContent === 'Not Read') {
+      readStatus.classList.toggle('read-status-red')
+    } else {
+      readStatus.classList.toggle('read-status-green');
+    }
+    
+
     readStatus.addEventListener("click", (event) => {
       const bookId = event.target.dataset.id;
       const book = myLibrary.find(item => item.id === bookId);
@@ -57,13 +70,21 @@ function renderBook() {
         book.toggleReadStatus();
         event.target.textContent = book.readStatus ? "Read" : "Not read";
       }
+      if (event.target.textContent === 'Not read') {
+        readStatus.classList.remove('read-status-green');
+        readStatus.classList.add('read-status-red');
+      } else {
+        readStatus.classList.remove('read-status-red');
+        readStatus.classList.add('read-status-green');
+      }
     });
-    // readStatus.classList.add(book.readStatus ? 'read-status-green' : 'read-status-red');
+    // readStatus.classList.toggle('read-status-green');
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = 'Delete';
     deleteBtn.dataset.id = book.id;
     const bookId = deleteBtn.dataset.id;
+    deleteBtn.classList.add('btn','delete-btn')
 
     deleteBtn.addEventListener("click", () => {
       console.log(book.id);
@@ -79,7 +100,9 @@ function renderBook() {
       renderBook();
     });
 
-    bookCard.append(title, author, pages, readStatus, deleteBtn);
+    bookDescription.append(title, author, pages);
+    bookBtn.append(readStatus, deleteBtn);
+    bookCard.append(bookDescription, bookBtn);
     displayBook.appendChild(bookCard);
   });
 }
