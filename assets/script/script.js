@@ -6,16 +6,18 @@ const form = document.getElementById("bookForm");
 const closeBtn = document.getElementById("closeBtn");
 
 
-function Book(title, author, pages, readStatus) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readStatus = readStatus;
-  this.id = crypto.randomUUID();
-}
+class Book {
+  constructor(title, author, pages, readStatus) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStatus = readStatus;
+    this.id = crypto.randomUUID();
+  }
 
-Book.prototype.toggleReadStatus = function () {
-  this.readStatus = !this.readStatus;
+  toggleReadStatus() {
+    this.readStatus = !this.readStatus;
+  }
 }
 
 function addBookToLibrary(title, author, pages, readStatus) {
@@ -54,7 +56,7 @@ function renderBook() {
     bookBtn.classList.add("book-btn");
 
     const readStatus = document.createElement('button');
-    readStatus.textContent = book.readStatus ? "Read" : "Not Read";
+    readStatus.textContent = book.readStatus ? "Read" : "Not read";
     readStatus.dataset.id = book.id;
     if (readStatus.textContent === 'Not Read') {
       readStatus.classList.toggle('read-status-red')
@@ -126,7 +128,7 @@ form.addEventListener("submit", (event) => {
   const pages = getBookPages.value;
 
   const getReadStatus = document.getElementById("bookRead");
-  const readStatus = getReadStatus.value;
+  const readStatus = getReadStatus.checked;
   // readStatus.checked = true;
 
   addBookToLibrary(title, author, pages, readStatus);
